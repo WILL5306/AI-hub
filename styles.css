@@ -1,0 +1,75 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* 防止出现双重滚动条 */
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 200px;
+    background-color: #202123;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-right: 1px solid #444;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 10px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: #ccc;
+    padding: 12px 15px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.tab-btn:hover {
+    background-color: #343541;
+    color: white;
+}
+
+.tab-btn.active {
+    background-color: #40414f;
+    color: white;
+    font-weight: bold;
+}
+
+/* 内容区样式 */
+.content {
+    flex: 1;
+    display: flex;
+    background-color: #fff;
+    position: relative;
+}
+
+/* Webview 样式 */
+.ai-view {
+    width: 100%;
+    height: 100%;
+    display: none; /* 默认隐藏所有 */
+}
+
+.ai-view.active {
+    display: flex; /* 只显示激活的 */
+}

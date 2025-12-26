@@ -1,0 +1,30 @@
+{
+  "name": "ai-hub",
+  "version": "1.0.0",
+  "description": "AI聚合工具",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.aihub.app",
+    "productName": "AI-Hub",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}
