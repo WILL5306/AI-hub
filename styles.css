@@ -1,75 +1,161 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden; /* 防止出现双重滚动条 */
-}
+/* 全局重置 */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-.container {
-    display: flex;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     height: 100vh;
+    display: flex; /* 左右布局 */
+    overflow: hidden;
+    background-color: #ffffff;
 }
 
-/* 侧边栏样式 */
+/* === 左侧侧边栏 (核心修改区域) === */
 .sidebar {
-    width: 200px;
-    background-color: #202123;
-    color: white;
+    /* 1. 默认状态：收起 */
+    width: 50px; /* 只留出大概一个图标的宽度 */
+    
+    background-color: #f7f9fa;
+    color: #333;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    border-right: 1px solid #444;
+    border-right: 1px solid #e1e4e8;
+    
+    /* 2. 动画设置：平滑过渡 */
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* 这种贝塞尔曲线会有“弹射”的高级感 */
+    
+    /* 3. 内容控制：收起时切断文字 */
+    overflow: hidden; /* 超过宽度的内容（文字）隐藏 */
+    white-space: nowrap; /* 强制所有内容在一行，不准换行 */
+    z-index: 100; /* 确保它在最上层 */
 }
 
-.sidebar-title {
-    font-size: 18px;
+/* === 鼠标划过 (Hover) 时：展开 === */
+.sidebar:hover {
+    width: 220px; /* 恢复原本的宽度 */
+    box-shadow: 4px 0 15px rgba(0,0,0,0.05); /* 展开时加个投影，更有层次感 */
+}
+
+/* 顶部标题栏 */
+.sidebar-header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px; /* 固定左边距，确保收起时 Emoji 还在 */
+    font-size: 20px;
+    font-weight: 800;
+    border-bottom: 1px solid #e1e4e8;
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
+    overflow: hidden;
+}
+
+.sidebar-menu {
+    flex: 1;
+    list-style: none;
+    padding: 10px 0; /* 调整内边距 */
+    overflow-y: auto;
+    overflow-x: hidden; /* 隐藏横向滚动条 */
+}
+
+/* 分割标题 (收起时隐藏，太窄了放不下) */
+.menu-divider {
+    padding: 15px 20px 5px;
+    font-size: 12px;
+    color: #999;
     font-weight: bold;
-    padding: 15px 10px;
-    text-align: center;
-    border-bottom: 1px solid #444;
-    margin-bottom: 10px;
+    text-transform: uppercase;
+    
+    /* 动画：收起时变透明 */
+    opacity: 0; 
+    transition: opacity 0.2s;
 }
 
-.tab-btn {
-    background: transparent;
-    border: none;
-    color: #ccc;
-    padding: 12px 15px;
-    text-align: left;
+/* 展开时显示分割标题 */
+.sidebar:hover .menu-divider {
+    opacity: 1;
+    transition-delay: 0.1s; /* 稍微慢一点显示，等宽度变大 */
+}
+
+/* 菜单项 */
+.menu-item {
+    height: 44px; /* 固定高度 */
+    margin: 4px 10px; /* 上下左右留点空隙 */
+    padding-left: 12px; /* 关键：固定左侧内边距，让图标位置雷打不动 */
+    
     cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: #4a4a4a;
     font-size: 14px;
-    transition: background 0.2s;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-.tab-btn:hover {
-    background-color: #343541;
-    color: white;
+/* 鼠标悬停 */
+.menu-item:hover {
+    background-color: #eceef0;
+    color: #000;
 }
 
-.tab-btn.active {
-    background-color: #40414f;
-    color: white;
+/* 选中状态 */
+.menu-item.active {
+    background-color: #e6f7ff;
+    color: #007aff; /* 苹果蓝 */
     font-weight: bold;
 }
 
-/* 内容区样式 */
+/* 图标样式 */
+.menu-item .icon {
+    min-width: 24px; /* 固定图标占位宽度，防止挤压 */
+    text-align: center;
+    margin-right: 12px; /* 图标和文字的间距 */
+    font-size: 18px;
+}
+
+/* 底部区域 (收起时也隐藏) */
+.sidebar-footer {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #999;
+    border-top: 1px solid #e1e4e8;
+    background-color: #f7f9fa;
+    
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.sidebar:hover .sidebar-footer {
+    opacity: 1;
+    transition-delay: 0.1s;
+}
+
+/* === 右侧内容区 === */
 .content {
     flex: 1;
-    display: flex;
-    background-color: #fff;
     position: relative;
+    background-color: #fff;
+    /* 右侧宽度会自动填充剩余空间，不需要额外动画 */
 }
 
-/* Webview 样式 */
-.ai-view {
+webview {
     width: 100%;
     height: 100%;
-    display: none; /* 默认隐藏所有 */
 }
 
-.ai-view.active {
-    display: flex; /* 只显示激活的 */
+/* 加载动画 */
+#loading {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    font-size: 14px;
+    z-index: 99;
+    display: none;
 }

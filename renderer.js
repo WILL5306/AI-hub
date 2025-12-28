@@ -1,23 +1,29 @@
-const tabs = document.querySelectorAll('.tab-btn');
-const views = document.querySelectorAll('.ai-view');
+// 获取 DOM 元素
+const menuItems = document.querySelectorAll('.menu-item');
+const webview = document.getElementById('webview');
+const loading = document.getElementById('loading');
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        // 1. 移除所有按钮的激活状态
-        tabs.forEach(t => t.classList.remove('active'));
-        // 2. 给当前点击的按钮添加激活状态
-        tab.classList.add('active');
+// 遍历菜单添加点击事件
+menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+        // 1. 样式切换
+        menuItems.forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
 
-        // 3. 获取目标 ID
-        const targetId = tab.getAttribute('data-target');
-
-        // 4. 隐藏所有 Webview
-        views.forEach(view => view.classList.remove('active'));
-
-        // 5. 显示目标 Webview
-        const targetView = document.getElementById(targetId);
-        if (targetView) {
-            targetView.classList.add('active');
+        // 2. 页面跳转
+        const url = item.getAttribute('data-url');
+        if (url && webview.src !== url) {
+            loading.style.display = 'flex'; // 显示加载中
+            webview.src = url;
         }
     });
+});
+
+// 监听 Webview 加载状态
+webview.addEventListener('did-start-loading', () => {
+    loading.style.display = 'flex';
+});
+
+webview.addEventListener('did-stop-loading', () => {
+    loading.style.display = 'none';
 });

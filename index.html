@@ -6,27 +6,47 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="sidebar-title">🤖 AI Hub</div>
-            
-            <button class="tab-btn active" data-target="chatgpt">ChatGPT</button>
-            <button class="tab-btn" data-target="gemini">Gemini</button>
-            <button class="tab-btn" data-target="deepseek">DeepSeek</button>
-            <button class="tab-btn" data-target="yuanbao">腾讯元宝</button>
+    
+    <div class="sidebar">
+        <div class="sidebar-header">
+             AI Hub
         </div>
 
-        <div class="content">
-            <webview id="chatgpt" src="https://chatgpt.com" class="ai-view active"></webview>
+        <ul class="sidebar-menu">
+                   <li class="menu-item" data-url="https://gemini.google.com">
+                <span class="icon"></span> Gemini
+            </li>
+         
+            <li class="menu-item" data-url="https://chatgpt.com">
+                <span class="icon"></span> ChatGPT
+            </li>
+               <li class="menu-item active" data-url="https://chat.deepseek.com">
+                <span class="icon"></span> DeepSeek
+            </li>
+                 <li class="menu-item" data-url="https://www.doubao.com">
+                <span class="icon"></span> 豆包
+            </li>
+         <li class="menu-item" data-url="https://yuanbao.tencent.com">
+                <span class="icon"></span> 腾讯元宝
+            </li>
+            <li class="menu-item" data-url="https://tongyi.aliyun.com/qianwen/">
+                <span class="icon"></span> 通义千问
+            </li>
             
-            <webview id="gemini" src="https://gemini.google.com" class="ai-view"></webview>
-            
-            <webview id="deepseek" src="https://chat.deepseek.com" class="ai-view"></webview>
-            
-            <webview id="yuanbao" src="https://yuanbao.tencent.com" class="ai-view"></webview>
+    
+            <li class="menu-item" data-url="https://fanyi.youdao.com/index.html">
+                <span class="icon"></span> 有道翻译
+            </li>
+        </ul>
+        
+        <div class="sidebar-footer">
+            Shift+Z 隐藏/显示
         </div>
+    </div> <div class="content">
+        <div id="loading">加载中...</div>
+        
+        <webview id="webview" src="https://chat.deepseek.com"></webview>
     </div>
-
     <script src="renderer.js"></script>
 </body>
 </html>
