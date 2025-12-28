@@ -1,5 +1,6 @@
 {
   "name": "ai-hub-desktop",
+  "productName": "AI Hub",
   "version": "1.0.0",
   "description": "All-in-One AI Workspace",
   "main": "main.js",
